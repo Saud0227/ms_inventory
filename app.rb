@@ -19,7 +19,33 @@ class MakerNet < Sinatra::Base
     @data =  db.exec("SELECT * FROM inventory lEFT JOIN products ON inventory.product_id = products.id")
     @title = "Inventory"
     puts @data
-    erb :inventory
+    erb :'inventory/index'
+  end
+
+  get '/inventory/new' do
+    @title = "New Inventory"
+    erb :'inventory/new'
+  end
+
+  post '/inventory/' do
+    puts params
+    product_id = params["product_id"].to_i
+    active = params["active"] == "on"
+    acquired = params["date"]
+    query = "INSERT INTO inventory (product_id, active, acquired_date) VALUES (#{product_id},#{active},'#{acquired}') RETURNING id"
+    puts query
+    result = db.exec(query).first
+    puts "!"
+    puts result
+    # raise ValueError
+    redirect "/inventory/#{result["id"]}"
+  end
+
+  get '/inventory/:id' do
+    @data =  db.exec("SELECT * FROM inventory lEFT JOIN products ON inventory.product_id = products.id WHERE inventory.id = #{params[:id]}")
+    @title = "Inventory"
+    puts @data
+    erb :'inventory/show'
   end
 
 end

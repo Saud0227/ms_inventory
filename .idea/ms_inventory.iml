@@ -42,4 +42,14 @@
       </RakeTaskImpl>
     </option>
   </component>
+  <component name="RakeTasksCache-v2">
+    <option name="myRootTask">
+      <RakeTaskImpl id="rake">
+        <subtasks>
+          <RakeTaskImpl description="" fullCommand="dev" id="dev" />
+          <RakeTaskImpl description="" fullCommand="kill_running" id="kill_running" />
+        </subtasks>
+      </RakeTaskImpl>
+    </option>
+  </component>
 </module>
