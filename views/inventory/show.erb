@@ -1,1 +1,29 @@
-<%=@data[0] %>
+<div class="main-grid-layout">
+  <header>
+    <h1> <%= @title %> </h1>
+  </header>
+
+  <aside>
+    <h2>Actions</h2>
+    <ul>
+      <li>
+        <a href="/inventory/new">New</a>
+      </li>
+      <li>
+        <a>Edit</a>
+      </li>
+      <li>
+        <a href="/products/<%=@data["product_id"] %>">Product</a>
+      </li>
+      <li>
+        <form action='/inventory/<%=  @data['id'] %>/delete' method='post'>
+          <button type="submit">Delete</button>
+        </form>
+      </li>
+      <li>
+        <a href="/inventory">Back</a>
+      </li>
+    </ul>
+  </aside>
+
+</div>

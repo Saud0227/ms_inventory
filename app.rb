@@ -16,9 +16,9 @@ class MakerNet < Sinatra::Base
   end
 
   get '/inventory' do
-    @data =  db.exec("SELECT * FROM inventory lEFT JOIN products ON inventory.product_id = products.id")
+    @data =  db.exec("SELECT i.*, p.name, p.vendor, p.image, p.type FROM inventory i lEFT JOIN products p ON i.product_id = p.id")
     @title = "Inventory"
-    puts @data
+    # puts @data
     erb :'inventory/index'
   end
 
@@ -27,25 +27,60 @@ class MakerNet < Sinatra::Base
     erb :'inventory/new'
   end
 
-  post '/inventory/' do
-    puts params
+  post '/inventory' do
+    # puts params
     product_id = params["product_id"].to_i
     active = params["active"] == "on"
     acquired = params["date"]
     query = "INSERT INTO inventory (product_id, active, acquired_date) VALUES (#{product_id},#{active},'#{acquired}') RETURNING id"
-    puts query
+    # puts query
     result = db.exec(query).first
-    puts "!"
-    puts result
+    # puts "!"
+    # puts result
     # raise ValueError
     redirect "/inventory/#{result["id"]}"
   end
 
+  post '/inventory/:id/delete' do |id|
+    db.exec('DELETE FROM inventory WHERE id = $1', [id])
+		redirect "/inventory"
+  end
+
+
   get '/inventory/:id' do
-    @data =  db.exec("SELECT * FROM inventory lEFT JOIN products ON inventory.product_id = products.id WHERE inventory.id = #{params[:id]}")
-    @title = "Inventory"
-    puts @data
+    @data =  db.exec("SELECT i.*, p.name, p.vendor, p.image, p.type FROM inventory i lEFT JOIN products p ON i.product_id = p.id WHERE i.id = #{params[:id]}")[0]
+    @title = @data["name"]
     erb :'inventory/show'
   end
 
+
+
+
+  get '/products' do
+    @data =  db.exec("SELECT * FROM products")
+    @title = "Products"
+    erb :'products/index'
+  end
+
+  get '/products/new' do
+    @title = "New Product"
+    erb :'products/new'
+  end
+
+  post '/products' do
+    # puts params
+    name = params["name"]
+    vendor = params["vendor"]
+    description = params["description"]
+    type = params["type"]
+    query = "INSERT INTO products (name, vendor, description, type) VALUES ('#{name}','#{vendor}','#{description}','#{type}') RETURNING id"
+    # puts query
+    result = db.exec(query).first
+    # puts "!"
+    # puts result
+    # raise ValueError
+    redirect "/products/#{result["id"]}"
+  end
 end
+
+

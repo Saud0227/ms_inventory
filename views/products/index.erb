@@ -1,0 +1,51 @@
+<div class="main-grid-layout">
+  <header>
+    <h1> <%= @title %> </h1>
+  </header>
+
+  <aside>
+    <h2>Actions</h2>
+    <ul>
+      <li>
+        <a href="/<%= @title.downcase %>/new">New</a>
+      </li>
+      <li>
+        <a href="/inventory">Inventory</a>
+      </li>
+      <li>
+        <a href="/">Back</a>
+      </li>
+    </ul>
+  </aside>
+
+  <table class="content">
+
+    <tr class="content-header">
+      <th>Id</th>
+      <th>Product</th>
+      <th>Active</th>
+      <th>Acquired</th>
+      <th>Location</th>
+      <th>Actions</th>
+    </tr>
+    <% @data.each do |row| %>
+      <tr>
+        <td class="table-center"><%= row["id"] %></td>
+        <td>
+          <div class="image-placeholder"></div>
+          <p><%= row["name"] %></p>
+        </td>
+<!--        <td class="capitalize table-center"><%#= row["active"]=="t" %></td>-->
+<!--        <td class="table-center"><%#= row["acquired_date"] %></td>-->
+        <td class="table-center">Tbr</td>
+        <td class="table-center">
+          <a href="/<%= @title.downcase %>/<%= row["id"] %>">Edit</a>
+          <!--            <a href="/<%#= @title.downcase %>/<%#= row["id"] %>/delete">Delete</a>-->
+      </tr>
+
+    <%end%>
+  </table>
+
+
+
+</div>
