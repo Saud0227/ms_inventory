@@ -1,2 +1,2 @@
-/.env
-/Gemfile.lock
+src/.env
+src/Gemfile.lock
