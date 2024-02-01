@@ -2,6 +2,6 @@ require 'bundler'
 
 Bundler.require
 
-require_relative '../'
+require_relative 'app'
 
 run MakerNet

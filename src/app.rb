@@ -1,86 +1,84 @@
+# frozen_string_literal: true
+
 require 'pg'
 require 'debug'
 require 'dotenv/load'
+require_relative 'db'
 
 class MakerNet < Sinatra::Base
-
   def db
     return @db if @db
+
     # @db = PG.connect(dbname: 'PostgresMsInventoryCont', host: 'localhost', password: 'postgres123')
-    @db = PG.connect( 'localhost', 5432, nil, nil, 'postgres', 'postgres', ENV['PG_PASSWD'])
+    # @db = PG.connect('localhost', 5432, nil, nil, 'postgres', 'postgres', ENV['PG_PASSWD'])
+    @db = PgDb.new
   end
 
   get '/' do
-    @title = "MakerNet"
+    @title = 'MakerNet'
     erb :index
   end
 
   get '/inventory' do
-    @data =  db.exec("SELECT i.*, p.name, p.vendor, p.image, p.type FROM inventory i lEFT JOIN products p ON i.product_id = p.id")
-    @title = "Inventory"
-    # puts @data
+    @data = db.get_current_inventory
+    @title = 'Inventory'
+
     erb :'inventory/index'
   end
 
   get '/inventory/new' do
-    @title = "New Inventory"
+    @title = 'New Inventory'
     erb :'inventory/new'
   end
 
   post '/inventory' do
-    # puts params
-    product_id = params["product_id"].to_i
-    active = params["active"] == "on"
-    acquired = params["date"]
-    query = "INSERT INTO inventory (product_id, active, acquired_date) VALUES (#{product_id},#{active},'#{acquired}') RETURNING id"
-    # puts query
-    result = db.exec(query).first
-    # puts "!"
-    # puts result
-    # raise ValueError
-    redirect "/inventory/#{result["id"]}"
+    data = {
+      'product_id' => params['product_id'].to_i,
+      'active' => params['active'] == 'on',
+      'acquired_date' => "'#{params['date']}'"
+    }
+    result = db.insert_table_via_hash('inventory', data)
+
+    redirect "/inventory/#{result}"
   end
 
   post '/inventory/:id/delete' do |id|
-    db.exec('DELETE FROM inventory WHERE id = $1', [id])
-		redirect "/inventory"
+    db.delete_table_via_id('inventory', id)
+    redirect '/inventory'
   end
 
-
   get '/inventory/:id' do
-    @data =  db.exec("SELECT i.*, p.name, p.vendor, p.image, p.type FROM inventory i lEFT JOIN products p ON i.product_id = p.id WHERE i.id = #{params[:id]}")[0]
-    @title = @data["name"]
+    @data =  db.get_current_inventory(params['id'])
+    @title = @data['name']
     erb :'inventory/show'
   end
 
-
-
-
   get '/products' do
-    @data =  db.exec("SELECT * FROM products")
-    @title = "Products"
+    @data =  db.get_products
+    @title = 'Products'
     erb :'products/index'
   end
 
   get '/products/new' do
-    @title = "New Product"
+    @title = 'New Product'
     erb :'products/new'
   end
 
   post '/products' do
-    # puts params
-    name = params["name"]
-    vendor = params["vendor"]
-    description = params["description"]
-    type = params["type"]
+    name = params['name']
+    vendor = params['vendor']
+    description = params['description']
+    type = params['type']
     query = "INSERT INTO products (name, vendor, description, type) VALUES ('#{name}','#{vendor}','#{description}','#{type}') RETURNING id"
-    # puts query
+
     result = db.exec(query).first
-    # puts "!"
-    # puts result
-    # raise ValueError
-    redirect "/products/#{result["id"]}"
+
+    redirect "/products/#{result['id']}"
   end
 end
 
-
+# TODO: Do sketches for erb views
+# TODO: Do ERB diagrams for DB
+# TODO: Make new route for products
+# TODO: Make edit route for products
+# TODO: Make edit route for inventory

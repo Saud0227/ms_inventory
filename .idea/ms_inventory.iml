@@ -8,6 +8,9 @@
       <sourceFolder url="file://$MODULE_DIR$/features" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/spec" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea/dataSources" />
+      <excludeFolder url="file://$MODULE_DIR$/doc" />
+      <excludeFolder url="file://$MODULE_DIR$/misc" />
     </content>
     <orderEntry type="jdk" jdkName="Remote-rbenv: ruby-3.2.2 (-p53" jdkType="RUBY_SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

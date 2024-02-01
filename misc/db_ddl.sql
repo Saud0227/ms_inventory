@@ -1,15 +1,6 @@
+DROP TABLE IF EXISTS public.products CASCADE;
 DROP TABLE IF EXISTS public.inventory;
-DROP TABLE IF EXISTS public.fillament;
-DROP TABLE IF EXISTS public.products;
-
-create table public.fillament
-(
-    id            integer generated always as identity
-        primary key,
-    color         text,
-    weight        integer,
-    material_type text
-);
+DROP TABLE IF EXISTS public.filament;
 
 create table if not exists public.products
 (
@@ -19,13 +10,10 @@ create table if not exists public.products
     vendor      text,
     description text,
     type        text,
-    image       text,
-    fillament_id  integer
-        constraint fk_fillament
-            references public.fillament
+    image       text
 );
 
-create table public.inventory
+create table if not exists public.inventory
 (
     id            integer generated always as identity
         primary key,
@@ -37,10 +25,22 @@ create table public.inventory
     location_id   integer
 );
 
+create table if not exists public.filament
+(
+    id            integer generated always as identity
+        primary key,
+    color         text,
+    weight        integer,
+    material_type text,
+    product_id    integer
+        constraint fk_product
+            references public.products
+);
+
 alter table public.inventory
     owner to postgres;
 
-alter table public.fillament
+alter table public.filament
     owner to postgres;
 
 alter table public.products
