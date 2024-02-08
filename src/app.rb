@@ -77,8 +77,3 @@ class MakerNet < Sinatra::Base
   end
 end
 
-# TODO: Do sketches for erb views
-# TODO: Do ERB diagrams for DB
-# TODO: Make new route for products
-# TODO: Make edit route for products
-# TODO: Make edit route for inventory
