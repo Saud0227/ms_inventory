@@ -28,7 +28,7 @@ class PgDb
   
   # @param [String] table
   # @param [Hash] hash
-  def insert_table_via_hash(table, hash)
+  def insert_by_hash(table, hash)
     keys = hash.keys
     values = hash.values
     query = "INSERT INTO #{table} (#{keys.join(',')}) VALUES (#{values.join(',')}) RETURNING id"

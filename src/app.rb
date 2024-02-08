@@ -37,7 +37,7 @@ class MakerNet < Sinatra::Base
       'active' => params['active'] == 'on',
       'acquired_date' => "'#{params['date']}'"
     }
-    result = db.insert_table_via_hash('inventory', data)
+    result = db.insert_by_hash('inventory', data)
 
     redirect "/inventory/#{result}"
   end
