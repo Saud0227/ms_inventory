@@ -2,7 +2,7 @@
 <project version="4">
   <component name="DatabaseToolSources">
     <data-source name="MsNet" uuid="73086eb6-0e20-4829-bd14-2f2368eb235a" type="POSTGRES">
-      <base-info connect-type="DB_DEFAULT" product="PostgreSQL" version="16.0 (Debian 16.0-1.pgdg120+1)" jdbc-name="PostgreSQL JDBC Driver" jdbc-version="42.6.0" />
+      <base-info connect-type="DB_DEFAULT" product="PostgreSQL" version="16.1 (Debian 16.1-1.pgdg120+1)" jdbc-name="PostgreSQL JDBC Driver" jdbc-version="42.6.0" />
       <user-name>postgres</user-name>
       <schema-mapping>
         <introspection-scope>

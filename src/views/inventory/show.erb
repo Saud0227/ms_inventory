@@ -1,10 +1,16 @@
 <div class="main-grid-layout">
   <header>
-    <h1> <%= @title %> </h1>
+    <h1>MsNet / Inventory / <%= @title %></h1>
+    <nav>
+      <button type="button" id="menu-toggle" aria-label="Menu" aria-controls="primary-navigation" aria-expanded="false">
+        <span class="visually-hidden">Menu</span>
+        <i class="material-symbols-outlined" aria-hidden="true">menu</i>
+      </button>
+    </nav>
   </header>
 
   <aside>
-    <h2>Actions</h2>
+
     <ul>
       <li>
         <a href="/inventory/new">New</a>
