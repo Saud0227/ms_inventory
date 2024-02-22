@@ -1,0 +1,29 @@
+<div class="main-grid-layout">
+  <header>
+    <h1> <%= @title %> </h1>
+  </header>
+
+  <aside>
+    <h2>Actions</h2>
+    <ul>
+      <li>
+        <a href="/products/new">New</a>
+      </li>
+      <li>
+        <a>Edit</a>
+      </li>
+      <li>
+        <a>Inventory</a>
+      </li>
+      <li>
+        <form action='/products/<%=  @data['id'] %>/delete' method='post'>
+          <button type="submit">Delete</button>
+        </form>
+      </li>
+      <li>
+        <a href="/products">Back</a>
+      </li>
+    </ul>
+  </aside>
+
+</div>

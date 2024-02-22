@@ -20,7 +20,7 @@ class PgDb
   # @param [Integer] id
   def get_products(id=nil)
     if id
-      db_exec("SELECT * FROM products where id = #{id}")
+      db_exec("SELECT * FROM products where id = #{id}").first
     else
       db_exec('SELECT * FROM products')
     end
@@ -37,7 +37,7 @@ class PgDb
     result['id']
   end
 
-  def delete_table_via_id(table, id)
+  def delete_from_table_by_id(table, id)
     db_exec("DELETE FROM #{table} WHERE id = #{id}")
   end
 
@@ -50,4 +50,3 @@ class PgDb
 
 
 end
-

@@ -43,7 +43,7 @@ class MakerNet < Sinatra::Base
   end
 
   post '/inventory/:id/delete' do |id|
-    db.delete_table_via_id('inventory', id)
+    db.delete_from_table_by_id('inventory', id)
     redirect '/inventory'
   end
 
@@ -75,5 +75,17 @@ class MakerNet < Sinatra::Base
 
     redirect "/products/#{result['id']}"
   end
+
+  post '/products/:id/delete' do |id|
+    db.delete_from_table_by_id('products', id)
+    redirect '/products'
+  end
+
+  get '/products/:id' do
+    @data =  db.get_products(params['id'])
+    @title = @data['name']
+    erb :'products/show'
+  end
+
 end
 
