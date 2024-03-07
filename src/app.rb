@@ -6,12 +6,47 @@ require 'dotenv/load'
 require_relative 'db'
 
 class MakerNet < Sinatra::Base
+
+  enable :sessions
+
+  before do
+    allowed = ['/login', '/', '/register']
+    unless allowed.include? request.path_info
+      if session[:user_id].nil?
+        redirect '/login'
+      end
+    end
+  end
+
+
   def db
     return @db if @db
 
     # @db = PG.connect(dbname: 'PostgresMsInventoryCont', host: 'localhost', password: 'postgres123')
     # @db = PG.connect('localhost', 5432, nil, nil, 'postgres', 'postgres', ENV['PG_PASSWD'])
     @db = PgDb.new
+  end
+
+
+  get '/login' do
+    unless session[:user_id].nil?
+      redirect '/'
+    end
+    erb :login, :layout => false
+  end
+
+  post '/login' do
+    session[:user_id] = 1
+    redirect '/'
+  end
+
+  get '/logout' do
+    session.clear
+    redirect '/'
+  end
+
+  get '/register' do
+    erb :register, :layout => false
   end
 
   get '/' do

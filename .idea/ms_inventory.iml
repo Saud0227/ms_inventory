@@ -14,6 +14,7 @@
     </content>
     <orderEntry type="jdk" jdkName="Remote-rbenv: ruby-3.2.2 (-p53" jdkType="RUBY_SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" scope="PROVIDED" name="bcrypt (v3.1.20, Remote-rbenv: ruby-3.2.2 (-p53) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="bundler (v2.4.10, Remote-rbenv: ruby-3.2.2 (-p53) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="daemons (v1.4.1, Remote-rbenv: ruby-3.2.2 (-p53) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="debug (v1.7.1, Remote-rbenv: ruby-3.2.2 (-p53) [gem]" level="application" />
@@ -40,16 +41,6 @@
       <RakeTaskImpl id="rake">
         <subtasks>
           <RakeTaskImpl description="" fullCommand="dev" id="dev" />
-        </subtasks>
-      </RakeTaskImpl>
-    </option>
-  </component>
-  <component name="RakeTasksCache-v2">
-    <option name="myRootTask">
-      <RakeTaskImpl id="rake">
-        <subtasks>
-          <RakeTaskImpl description="" fullCommand="dev" id="dev" />
-          <RakeTaskImpl description="" fullCommand="kill_running" id="kill_running" />
         </subtasks>
       </RakeTaskImpl>
     </option>

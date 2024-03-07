@@ -7,6 +7,7 @@
     --ultramarin:#200c9c;
     --granitgra:#f0f0f0;
     --kolgra:#222222;
+    --andesitgra:#6F6D6D
 }
 
 
@@ -231,4 +232,78 @@ span.visually-hidden {
 #menu-toggle:hover {
     color: var(--granitgra);
     border: var(--granitgra) solid 1px;
+}
+
+
+
+
+
+#content-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: var(--kolgra);
+}
+
+.login {
+    padding: 20px;
+    border: 1px solid var(--andesitgra);
+    background-color: var(--kolgra);
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.login-form label {
+    color: var(--granitgra);
+    text-align: left;
+}
+
+.login-form input {
+    -webkit-appearance: none;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid var(--andesitgra);
+    border-radius: 5px;
+    width: 250px;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.login-form button {
+    padding: 10px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 5px;
+    background: linear-gradient(60deg, var(--ultraviolett), var(--magenta));
+    background-size: 500% 100%;
+    color: var(--granitgra);
+    cursor: pointer;
+    transition: 0.4s ease-in-out;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 1.1em;
+}
+
+.login-form button:hover {
+    background-position: 100% 0;
+}
+
+.login-form a {
+    color: var(--granitgra);
+    text-decoration: none;
+}
+
+.login span {
+    color: var(--magenta);
+}
+
+#content-center > h1 {
+    text-align: center;
+    color: var(--granitgra);
 }
