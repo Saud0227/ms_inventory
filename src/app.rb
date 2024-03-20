@@ -6,18 +6,14 @@ require 'dotenv/load'
 require_relative 'db'
 
 class MakerNet < Sinatra::Base
-
   enable :sessions
 
   before do
     allowed = ['/login', '/', '/register']
     unless allowed.include? request.path_info
-      if session[:user_id].nil?
-        redirect '/login'
-      end
+      redirect '/login' if session[:user_id].nil?
     end
   end
-
 
   def db
     return @db if @db
@@ -27,12 +23,9 @@ class MakerNet < Sinatra::Base
     @db = PgDb.new
   end
 
-
   get '/login' do
-    unless session[:user_id].nil?
-      redirect '/'
-    end
-    erb :login, :layout => false
+    redirect '/' unless session[:user_id].nil?
+    erb :login, layout: false
   end
 
   post '/login' do
@@ -46,7 +39,7 @@ class MakerNet < Sinatra::Base
   end
 
   get '/register' do
-    erb :register, :layout => false
+    erb :register, layout: false
   end
 
   get '/' do
@@ -104,7 +97,8 @@ class MakerNet < Sinatra::Base
     vendor = params['vendor']
     description = params['description']
     type = params['type']
-    query = "INSERT INTO products (name, vendor, description, type) VALUES ('#{name}','#{vendor}','#{description}','#{type}') RETURNING id"
+    query = 'INSERT INTO products (name, vendor, description, type)'
+    query += " VALUES ('#{name}', '#{vendor}', '#{description}', '#{type}') RETURNING id"
 
     result = db.exec(query).first
 
@@ -121,6 +115,4 @@ class MakerNet < Sinatra::Base
     @title = @data['name']
     erb :'products/show'
   end
-
 end
-

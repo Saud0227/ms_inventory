@@ -213,15 +213,11 @@ span.visually-hidden {
 }
 
 #menu-toggle {
-    padding: 0.5em;
-    padding-bottom: 0.3em;
+    padding: 0.5em 0.5em 0.3em 0.5em;
     position: absolute;
     z-index: 10;
 
     background: transparent;
-    color: transparent;
-    border: 0;
-
     cursor: pointer;
     color: #B2B2B2FF;
     border: #B2B2B2FF solid 1px;
@@ -266,13 +262,11 @@ span.visually-hidden {
 
 .login-form input {
     -webkit-appearance: none;
-    margin: 10px;
     padding: 10px;
     border: 1px solid var(--andesitgra);
     border-radius: 5px;
     width: 250px;
-    margin: 0;
-    margin-bottom: 10px;
+    margin: 0 0 10px 0;
 }
 
 .login-form button {
