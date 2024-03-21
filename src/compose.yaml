@@ -1,16 +1,38 @@
 version: "0.0.1"
 services:
+  sinatra_app:
+    build:
+      context: .
+    ports:
+      - "9292:9292"
+    networks:
+      - backend
+      - frontend
+    depends_on:
+        - postgres_db
+
   postgres_db:
     image: postgres:latest
     container_name: PostgresMsInventoryCont
     restart: always
+    networks:
+      backend:
+        aliases:
+          - postgres
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=${PG_PASSWD}
     ports:
-      - 5432:5432
+      - "5432:5432"
     volumes:
       - postgres_db:/var/lib/postgresql/data
+
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
+
 volumes:
   postgres_db:
     driver: local
