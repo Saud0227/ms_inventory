@@ -212,14 +212,12 @@ span.visually-hidden {
     width: 1px;
 }
 
-menu-control {
+.menu-control {
     padding: 0.5em 0.5em 0.3em 0.5em;
     position: absolute;
     z-index: 0;
 
     background: transparent;
-    color: transparent;
-    border: 0;
 
     cursor: pointer;
     color: #B2B2B2FF;
