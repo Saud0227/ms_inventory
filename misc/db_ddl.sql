@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS public.users
     username  VARCHAR(100) NOT NULL,
     name  VARCHAR(100) NOT NULL,
     email  VARCHAR(100) NOT NULL,
-    password  VARCHAR(69) NOT NULL,
+    password  VARCHAR(89) NOT NULL,
     discord  VARCHAR(100)
 );
 

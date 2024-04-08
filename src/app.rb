@@ -29,8 +29,32 @@ class MakerNet < Sinatra::Base
   end
 
   post '/login' do
-    session[:user_id] = 1
-    redirect '/'
+    username = params['username']
+    p username
+    # if username string has a @
+    if username.include? '@'
+      username = db.get_username_by_mail(username)
+    end
+
+    password = params['password']
+    p password
+    user_password = db.get_password_by_username(username)['password']
+    p user_password
+    # the salt is the last 29 characters of the password
+    salt = user_password[-29..-1]
+    p salt
+    # the password is the first 60 characters of the password
+    user_password = user_password[0..59]
+    p password + salt
+    password = BCrypt::Password.new(password + salt)
+    if password == user_password
+      user = db.get_user_by_id(username)
+      session[:user_id] = user['id']
+      redirect '/'
+    else
+      redirect '/login'
+    end
+
   end
 
   get '/logout' do
@@ -40,6 +64,26 @@ class MakerNet < Sinatra::Base
 
   get '/register' do
     erb :register, layout: false
+  end
+
+  post '/register' do
+    name = params['name']
+    email = params['email']
+    username = params['username']
+    password = params['password']
+    salt = BCrypt::Engine.generate_salt
+    password = BCrypt::Password.create(password + salt)
+    hashed_password = "#{password}#{salt}"
+    p hashed_password
+    p hashed_password.length
+    new_user_id = db.register_new_user(name, username, email, hashed_password)
+
+    p new_user_id
+
+    user = db.get_user_by_id(new_user_id['id'])
+    session[:user_id] = user['id']
+    redirect '/'
+
   end
 
   get '/' do

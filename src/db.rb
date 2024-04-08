@@ -41,6 +41,24 @@ class PgDb
     db_exec("DELETE FROM #{table} WHERE id = #{id}")
   end
 
+  def get_password_by_username(username)
+    db_exec("SELECT password FROM users WHERE username = '#{username}'").first
+  end
+
+  def get_user_by_id(id)
+    db_exec("SELECT * FROM users WHERE id = #{id}").first
+  end
+
+  def get_username_by_mail(mail)
+    db_exec("SELECT username FROM users WHERE email = '#{mail}'").first
+  end
+
+  def register_new_user(name, username, email, password)
+    query = "INSERT INTO users (name, username, email, password)"
+    query += "VALUES ('#{name}', '#{username}', '#{email}', '#{password}') RETURNING id"
+    db_exec(query).first
+  end
+
   private
   
   
