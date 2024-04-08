@@ -28,9 +28,9 @@ function closeMenu() {
     menuOpen.setAttribute('aria-expanded', 'false');
     siteNavigation.setAttribute("data-state", "closing");
 
-    siteNavigation.addEventListener("animationend",() => {
+    siteNavigation.addEventListener("animationend", () => {
         if (siteNavigation.getAttribute('data-state') === "closing") {
             siteNavigation.setAttribute('data-state', 'closed');
         }
-    }, {once:true});
+    }, {once: true});
 }
