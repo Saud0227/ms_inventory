@@ -9,7 +9,7 @@ class MakerNet < Sinatra::Base
   enable :sessions
 
   before do
-    allowed = ['/login', '/', '/register']
+    allowed = ['/login', '/', '/register', '/test']
     redirect '/login' if !allowed.include?(request.path_info) && session[:user_id].nil?
     unless session[:user_id].nil?
       @user = db.get_user_by_id(session[:user_id]) if session[:user_id]
@@ -81,6 +81,10 @@ class MakerNet < Sinatra::Base
   get '/' do
     @title = 'MakerNet'
     erb :index
+  end
+
+  get '/test' do
+    erb :test, layout: :new_layout
   end
 
   # old routes
