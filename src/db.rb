@@ -3,8 +3,9 @@
 require 'pg'
 
 class PgDb
-  def initialize
-    @db_conn = PG.connect('localhost', 5432, nil, nil, 'postgres', 'postgres', ENV['PG_PASSWD'])
+
+  def initialize(host)
+    @db_conn = PG.connect(host, 5432, nil, nil, 'postgres', 'postgres', ENV['PG_PASSWD'])
   end
 
   # @param [Integer] id

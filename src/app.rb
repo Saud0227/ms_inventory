@@ -22,7 +22,11 @@ class MakerNet < Sinatra::Base
 
     # @db = PG.connect(dbname: 'PostgresMsInventoryCont', host: 'localhost', password: 'postgres123')
     # @db = PG.connect('localhost', 5432, nil, nil, 'postgres', 'postgres', ENV['PG_PASSWD'])
-    @db = PgDb.new
+    @db = if ENV['PWD'].split('/').last == 'app'
+            PgDb.new('postgres')
+          else
+            PgDb.new('localhost')
+          end
   end
 
   get '/login' do
