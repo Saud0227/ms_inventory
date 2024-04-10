@@ -80,9 +80,9 @@ div.main-content {
 
 div.main-content > aside {
     grid-area: aside;
-    width: 20%;
+    width: fit-content;
     /* color mix kolgra and granitgra*/
-    background: linear-gradient(60deg, var(--kolgra), var(--granitgra));
+    background: #3d3045;
 
     color: #ffffff;
     padding: 10px;
