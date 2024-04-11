@@ -9,7 +9,7 @@ class MakerNet < Sinatra::Base
   enable :sessions
 
   before do
-    allowed = ['/login', '/', '/register', '/test']
+    allowed = %w[/login / /register]
     redirect '/login' if !allowed.include?(request.path_info) && session[:user_id].nil?
     unless session[:user_id].nil?
       @user = db.get_user_by_id(session[:user_id]) if session[:user_id]
@@ -22,7 +22,7 @@ class MakerNet < Sinatra::Base
 
     # @db = PG.connect(dbname: 'PostgresMsInventoryCont', host: 'localhost', password: 'postgres123')
     # @db = PG.connect('localhost', 5432, nil, nil, 'postgres', 'postgres', ENV['PG_PASSWD'])
-    @db = if ENV['PWD'].split('/').last == 'app'
+    @db = if Dir.pwd.split('/').last == 'app'
             PgDb.new('postgres')
           else
             PgDb.new('localhost')
