@@ -6,7 +6,7 @@ on:
     branches:
       - main
 env:
-  USER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  USER_TOKEN: ${{ secrets.WIKI_ACTION_TOKEN }}
   USER_NAME: "Saud0227"
   USER_EMAIL: "Saud02Tech@gmail.com"
   OWNER: ${{ github.event.repository.owner.name }}
