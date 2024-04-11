@@ -1,10 +1,33 @@
 <div class="main-grid-layout">
   <header>
-    <h1> <%= @title %> </h1>
+    <h1>MsNet / Inventory / <%= @title %></h1>
+    <nav>
+      <button type="button" id="menu-open" class="menu-control" aria-label="Menu" aria-controls="primary-navigation" aria-expanded="false">
+        <span class="visually-hidden">Menu</span>
+        <i class="material-symbols-outlined" aria-hidden="true">menu</i>
+      </button>
+      <div data-state="closed" id="primary-navigation" role="navigation">
+        <div>
+          <h2>Navigation</h2>
+          <button type="button" id="menu-close" class="menu-control" aria-label="Menu" aria-controls="primary-navigation" aria-expanded="false">
+            <span class="visually-hidden">Close</span>
+            <i class="material-symbols-outlined" aria-hidden="true">Close</i>
+          </button>
+        </div>
+        <div id="nav-content">
+          <ul>
+            <a href="/">Home</a>
+            <a href="/inventory">Inventory</a>
+            <a href="/products">Products</a>
+          </ul>
+        </div>
+      </div>
+      <div id="dim"></div>
+    </nav>
   </header>
 
   <aside>
-    <h2>Actions</h2>
+
     <ul>
       <li>
         <a href="/inventory/new">New</a>

@@ -1,14 +1,30 @@
+# frozen_string_literal: true
+
 task :dev do
   port = 9292
-  puts "Launching rerun on port 9292"
-  puts "  http://localhost:9292"
-  system('rerun rackup --force-polling  --ignore "*.{erb,slim,js,css}"')
+  if system("lsof -i:#{port}", out: '/dev/null')
+    print "Port #{port} busy, kill process? (y/n): "
+    user_input = $stdin.gets.chomp
+
+    if %w[y Y yes].include? user_input
+      system("lsof -t -i:#{port} | xargs kill -9")
+
+    else
+      puts 'Exiting'
+      exit
+
+    end
+  end
+
+  puts "Launching rerun on port #{port}"
+  puts "  http://localhost:#{port}/"
+  system('rerun rackup --force-polling --ignore "*.{erb,slim,js,css}" -p 9292')
 end
 
 task :kill_running do
-  puts "Check port empty"
-  if system("lsof -i:9292", out: '/dev/null')
-    puts "Port busy, killing process"
+  puts 'Check port empty'
+  if system('lsof -i:9292', out: '/dev/null')
+    puts 'Port busy, killing process'
     system('lsof -t -i:9292 | xargs kill -9')
   end
   print "Port cleared\n"
