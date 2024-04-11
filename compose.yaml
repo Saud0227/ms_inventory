@@ -2,7 +2,7 @@ version: "0.0.1"
 services:
   sinatra_app:
     build:
-      context: .
+      context: src
     ports:
       - "9292:9292"
     networks:
