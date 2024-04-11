@@ -23,14 +23,14 @@ Adminanvändare - kan ta bort/editera böcker, kommentarer och användare.
 
 ## ER-Diagram
 
-![Er-Diagram](./er_diagram.png?raw=true "ER-diagram")
+![Er-Diagram](assets/images/ms_inventory.png?raw=true "ER-diagram")
 
 ## Gränssnittsskisser
 
 **Login**
 
-![Er-Diagram](./ui_login.png?raw=true "ER-diagram")
+![Er-Diagram](assets/images/ui_login.png?raw=true "ER-diagram")
 
 **Visa bok**
 
-![Er-Diagram](./ui_show_book.png?raw=true "ER-diagram")
+![Er-Diagram](assets/images/ui_show_book.png?raw=true "ER-diagram")
