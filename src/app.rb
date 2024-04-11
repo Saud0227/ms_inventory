@@ -3,7 +3,7 @@
 require 'pg'
 require 'debug'
 require 'dotenv/load'
-require_relative 'db'
+require_relative 'modules/db'
 
 class MakerNet < Sinatra::Base
   enable :sessions
