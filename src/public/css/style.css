@@ -17,11 +17,32 @@ body {
     font-style: normal;
     font-size: 16px;
     line-height: 1.5;
-    color: var(--kolgra);
-    background-color: #fff;
+    color: var(--granitgra);
+    /*background-color: #fff;*/
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     margin: 0;
+}
+
+/*Scroll bar*/
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: var(--kolgra);
+    border-left: var(--andesitgra) solid 1px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
 
 
@@ -38,10 +59,7 @@ div.main-grid-layout > header {
     background-color: var(--kolgra);
     color: #fff;
     padding: 10px;
-    display: grid;
-    grid-template-columns: 50px auto;
-    grid-template-rows: auto;
-    grid-template-areas: 'nav tx';
+    display: flex;
 }
 
 div.main-grid-layout > div.extra-headbar {
@@ -58,16 +76,23 @@ nav {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
+    width: 40px;
     height: 100%;
 }
 
+div.main-grid-layout > header > img {
+    height: 40px;
+    width: 40px;
+    margin: 0 10px 0 10px;
+    align-self: center;
+}
 
 div.main-grid-layout > header > h1 {
     grid-area: tx;
     height: min-content;
     align-self: center;
-    margin: 0 0 0 10px;
+    margin: 0;
+    font-size: 1.8em;
 }
 
 div.main-content {
@@ -76,6 +101,8 @@ div.main-content {
     grid-template-columns: min-content auto;
     grid-template-rows: auto;
     grid-template-areas: "aside content";
+    background: var(--kolgra);
+    border-top: var(--andesitgra) solid 1px;
 }
 
 div.main-content > aside {
@@ -127,15 +154,15 @@ span.visually-hidden {
 }
 
 .menu-control {
-    padding: 0.5em 0.5em 0.3em 0.5em;
+    padding: 0.3em 0.3em 0.2em 0.3em;
     position: absolute;
     z-index: 0;
 
     background: transparent;
 
     cursor: pointer;
-    color: #B2B2B2FF;
-    border: #B2B2B2FF solid 1px;
+    color: var(--andesitgra);
+    border: var(--andesitgra) solid 1px;
     border-radius: 5px;
     transition: color ease-in-out 0.2s, border ease-in-out 0.2s;
 }
@@ -286,7 +313,7 @@ div#primary-navigation > div > button {
     background-color: var(--kolgra);
 }
 
-.login {
+.account-form {
     padding: 20px;
     border: 1px solid var(--andesitgra);
     background-color: var(--kolgra);
@@ -336,11 +363,99 @@ div#primary-navigation > div > button {
     text-decoration: none;
 }
 
-.login span {
+.account-form span {
     color: var(--magenta);
 }
 
 #content-center > h1 {
     text-align: center;
     color: var(--granitgra);
+}
+
+.logo > a {
+    display: block;
+    width: fit-content;
+    height: fit-content;
+    margin: 0;
+    padding: 0;
+    line-height: 0;
+}
+
+.logo > a > img.large-logo {
+    height: 100px;
+    width: 100px;
+    margin: 0;
+    align-self: center;
+}
+
+
+.screen-tile {
+    width: 90%;
+    padding: 1% 2.5% 1% 7.5%;
+    border-bottom: var(--andesitgra) solid 1px;
+}
+
+.screen-tile-bg {
+    /*    background image cover no repeat aligned to right side*/
+    background-size: cover;
+    background-position: right;
+    background-repeat: no-repeat;
+    height: 70vh;
+}
+
+.screen-tile h1 {
+    margin-bottom: 0;
+    font-size: 4em;
+    font-weight: 500;
+}
+
+.screen-tile h2 {
+    display: block;
+    font-weight: 300;
+    font-style: italic;
+    margin: 0 0 0 4%;
+}
+
+
+.sign-in-block {
+    margin-top: 30vh;
+    display: flex;
+    width: 40%;
+}
+
+.sign-in-block a {
+    margin: 0 40px 0 0;
+    text-decoration: none;
+}
+
+
+.btn {
+    padding: 10px;
+    border-radius: 5px;
+    background-size: 500% 100%;
+    color: var(--granitgra);
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 1.1em;
+    border: 1px solid var(--magenta);
+}
+
+.btn:hover {
+    border-color: var(--granitgra);
+}
+
+
+.btn-light:hover {
+    box-shadow: 0 4px 7px rgba(0, 0, 0, 0.15), 0 100px 80px rgba(255, 255, 255, 0.02), 0 42px 33px rgba(255, 255, 255, 0.024), 0 22px 18px rgba(255, 255, 255, 0.028), 0 12px 10px rgba(255, 255, 255, 0.034), 0 7px 5px rgba(255, 255, 255, 0.04), 0 3px 2px rgba(255, 255, 255, 0.07);
+}
+
+.btn-primary {
+    border: none;
+    background-color: var(--magenta);
+}
+
+.btn-primary:hover {
+    background-color: var(--ultraviolett);
 }
