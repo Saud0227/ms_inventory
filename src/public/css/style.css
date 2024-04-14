@@ -51,7 +51,18 @@ div.main-grid-layout {
     height: 100vh;
     grid-template-columns: auto;
     grid-template-rows: min-content min-content auto;
-    grid-template-areas: "headbar" "extra-headbar" "content";
+    grid-template-areas: "headbar" "extra-headbar" "content" "footer";
+}
+
+footer {
+    grid-area: footer;
+    background-color: var(--kolgra);
+    color: var(--granitgra);
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: var(--andesitgra) solid 1px;
 }
 
 div.main-grid-layout > header {
@@ -60,6 +71,7 @@ div.main-grid-layout > header {
     color: #fff;
     padding: 10px;
     display: flex;
+    gap: 10px;
 }
 
 div.main-grid-layout > div.extra-headbar {
@@ -363,13 +375,14 @@ div#primary-navigation > div > button {
     text-decoration: none;
 }
 
-.account-form span {
-    color: var(--magenta);
-}
-
 #content-center > h1 {
     text-align: center;
     color: var(--granitgra);
+}
+
+.logo {
+    height: fit-content;
+    align-self: center;
 }
 
 .logo > a {
@@ -388,11 +401,18 @@ div#primary-navigation > div > button {
     align-self: center;
 }
 
+.logo > a > img.small-logo {
+    height: 35px;
+    width: 35px;
+    margin: 0;
+    align-self: center;
+}
+
 
 .screen-tile {
     width: 90%;
     padding: 1% 2.5% 1% 7.5%;
-    border-bottom: var(--andesitgra) solid 1px;
+    /*border-bottom: var(--andesitgra) solid 1px;*/
 }
 
 .screen-tile-bg {
@@ -401,15 +421,19 @@ div#primary-navigation > div > button {
     background-position: right;
     background-repeat: no-repeat;
     height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.screen-tile h1 {
+.screen-tile > div > h1 {
     margin-bottom: 0;
     font-size: 4em;
     font-weight: 500;
+    width: 50%;
 }
 
-.screen-tile h2 {
+.screen-tile > div > h2 {
     display: block;
     font-weight: 300;
     font-style: italic;
@@ -418,14 +442,24 @@ div#primary-navigation > div > button {
 
 
 .sign-in-block {
-    margin-top: 30vh;
-    display: flex;
-    width: 40%;
+    width: 25%;
+    margin-left: 4%;
+    margin-bottom: 15vh;
 }
 
-.sign-in-block a {
-    margin: 0 40px 0 0;
+.sign-in-block > div {
+    display: flex;
+    gap: 40px;
+    /*justify-content: space-around;*/
+}
+
+.sign-in-block > *:nth-child(2) {
+    margin-top: 10px;
+}
+
+.sign-in-block > div > a {
     text-decoration: none;
+    padding: 1% 3%;
 }
 
 
@@ -458,4 +492,61 @@ div#primary-navigation > div > button {
 
 .btn-primary:hover {
     background-color: var(--ultraviolett);
+}
+
+
+a.plain-text {
+    color: var(--granitgra);
+    text-decoration: none;
+}
+
+.highlight {
+    color: var(--magenta);
+}
+
+.screen-tile:nth-child(2) {
+    height: 70vh;
+}
+
+
+/* Card */
+
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.card {
+    background-color: var(--kolgra);
+    border: 1px solid var(--magenta);
+    border-radius: 5px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    transition: ease-in-out 0.6s;
+}
+
+.card:hover {
+    border: 1px solid var(--turkosmint);
+    box-shadow: 0 4px 7px rgba(0, 0, 0, 0.15), 0 100px 80px rgba(255, 255, 255, 0.02), 0 42px 33px rgba(255, 255, 255, 0.024), 0 22px 18px rgba(255, 255, 255, 0.028), 0 12px 10px rgba(255, 255, 255, 0.034), 0 7px 5px rgba(255, 255, 255, 0.04), 0 3px 2px rgba(255, 255, 255, 0.07);
+}
+
+.card > h2 {
+    margin: 0;
+}
+
+.card > h2:after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: var(--andesitgra);
+    opacity: 50%;
+    margin: 4px 0;
+}
+
+.card > p {
+    margin: 0;
 }
