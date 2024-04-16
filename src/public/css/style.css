@@ -50,7 +50,7 @@ div.main-grid-layout {
     display: grid;
     height: 100vh;
     grid-template-columns: auto;
-    grid-template-rows: min-content min-content auto;
+    grid-template-rows: min-content min-content auto min-content;
     grid-template-areas: "headbar" "extra-headbar" "content" "footer";
 }
 
@@ -430,7 +430,7 @@ div#primary-navigation > div > button {
     margin-bottom: 0;
     font-size: 4em;
     font-weight: 500;
-    width: 50%;
+    width: 50vw;
 }
 
 .screen-tile > div > h2 {

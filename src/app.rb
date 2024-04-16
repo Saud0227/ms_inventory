@@ -2,15 +2,20 @@
 
 require 'pg'
 require 'debug'
-require 'dotenv/load'
+require 'dotenv'
 require_relative 'modules/db'
+Dotenv.load('../.env')
+
 
 class MakerNet < Sinatra::Base
   enable :sessions
 
   before do
     allowed = %w[/login / /register]
-    redirect '/login' if !allowed.include?(request.path_info) && session[:user_id].nil?
+    if !allowed.include?(request.path_info) && session[:user_id].nil?
+      session[:redirect] = request.path_info
+      redirect '/login'
+    end
     unless session[:user_id].nil?
       @user = db.get_user_by_id(session[:user_id]) if session[:user_id]
     end
@@ -41,7 +46,10 @@ class MakerNet < Sinatra::Base
 
     if user_password == password
       session[:user_id] = user['id']
-      redirect '/'
+      target = '/'
+      target = session[:redirect] if session[:redirect]
+      session[:redirect] = nil
+      redirect target
     else
       redirect '/login'
     end
@@ -81,11 +89,20 @@ class MakerNet < Sinatra::Base
 
   get '/' do
     @title = 'MakerNet'
+    unless @user.nil?
+      redirect '/dashboard'
+    end
     erb :index
   end
 
-  get '/test' do
-    erb :test, layout: :new_layout
+  get '/dashboard' do
+    @title = 'Dashboard'
+    erb :dashboard
+  end
+
+  get '/filament' do
+    @title = 'Filament'
+    erb :'filament/index'
   end
 
   # old routes
