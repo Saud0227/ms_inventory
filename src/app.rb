@@ -5,6 +5,7 @@ require 'debug'
 require 'dotenv'
 require_relative 'modules/pgdb'
 require_relative 'modules/user'
+require_relative 'modules/filament'
 
 Dotenv.load('../.env')
 
@@ -37,6 +38,12 @@ class MakerNet < Sinatra::Base
     return @user_db if @user_db
 
     @user_db = User.new
+  end
+
+  def filament_db
+    return @filament_db if @filament_db
+
+    @filament_db = Filament.new
   end
 
   helpers do
@@ -127,76 +134,22 @@ class MakerNet < Sinatra::Base
 
   get '/filament' do
     @title = 'Filament'
+
+    to_sort = %w[color material vendor]
+    @filter_data = { 'group' => filament_db.get_all_filament_groups }
+
+    to_sort.each do |key|
+      @filter_data[key] = filament_db.get_all_json_keys(key)
+    end
+
+    @data = filament_db.get_filament
     erb :'filament/index'
   end
 
-  # old routes
-  # get '/inventory' do
-  #   @data = db.get_current_inventory
-  #   @title = 'Inventory'
-  #
-  #   erb :'inventory/index'
-  # end
-  #
-  # get '/inventory/new' do
-  #   @title = 'New Inventory'
-  #   erb :'inventory/new'
-  # end
-  #
-  # post '/inventory' do
-  #   data = {
-  #     'product_id' => params['product_id'].to_i,
-  #     'active' => params['active'] == 'on',
-  #     'acquired_date' => "'#{params['date']}'"
-  #   }
-  #   result = db.insert_by_hash('inventory', data)
-  #
-  #   redirect "/inventory/#{result}"
-  # end
-  #
-  # post '/inventory/:id/delete' do |id|
-  #   db.delete_from_table_by_id('inventory', id)
-  #   redirect '/inventory'
-  # end
-  #
-  # get '/inventory/:id' do
-  #   @data =  db.get_current_inventory(params['id'])
-  #   @title = @data['name']
-  #   erb :'inventory/show'
-  # end
-  #
-  # get '/products' do
-  #   @data =  db.get_products
-  #   @title = 'Products'
-  #   erb :'products/index'
-  # end
-  #
-  # get '/products/new' do
-  #   @title = 'New Product'
-  #   erb :'products/new'
-  # end
-  #
-  # post '/products' do
-  #   name = params['name']
-  #   vendor = params['vendor']
-  #   description = params['description']
-  #   type = params['type']
-  #   query = 'INSERT INTO products (name, vendor, description, type)'
-  #   query += " VALUES ('#{name}', '#{vendor}', '#{description}', '#{type}') RETURNING id"
-  #
-  #   result = db.exec(query).first
-  #
-  #   redirect "/products/#{result['id']}"
-  # end
-  #
-  # post '/products/:id/delete' do |id|
-  #   db.delete_from_table_by_id('products', id)
-  #   redirect '/products'
-  # end
-  #
-  # get '/products/:id' do
-  #   @data =  db.get_products(params['id'])
-  #   @title = @data['name']
-  #   erb :'products/show'
-  # end
+  get '/filament/:id' do |id|
+    @data = filament_db.get_filament(id)[0]
+    @title = @data['name']
+    erb :'filament/show'
+  end
+
 end
