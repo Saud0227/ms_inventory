@@ -47,7 +47,7 @@ class MakerNet < Sinatra::Base
 
   get '/login' do
     redirect '/' unless session[:user_id].nil?
-    erb :'user/login', layout: false
+    erb :'account/login', layout: false
   end
 
   post '/login' do
@@ -82,7 +82,7 @@ class MakerNet < Sinatra::Base
   end
 
   get '/register' do
-    erb :'user/register', layout: false
+    erb :'account/register', layout: false
   end
 
   post '/register' do
@@ -105,7 +105,7 @@ class MakerNet < Sinatra::Base
 
   get '/profile' do
     @title = @user['name']
-    erb :'user/profile'
+    erb :'account/profile'
   end
 
   get '/' do
@@ -116,7 +116,7 @@ class MakerNet < Sinatra::Base
 
   get '/dashboard' do
     @title = 'Dashboard'
-    erb :dashboard
+    erb :'account/dashboard'
   end
 
   get '/filament' do
