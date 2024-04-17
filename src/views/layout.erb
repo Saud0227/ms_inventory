@@ -7,47 +7,80 @@
   <link href="/css/style.css" rel="stylesheet">
   <title><%= @title %></title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,200,0,200">
+  <link rel="icon" href="/fav/monochrome_black.png" type="image/x-icon">
 
 </head>
 <body>
 <div class="main-grid-layout">
-  <header>
-    <h1>MsNet</h1>
-    <nav>
-      <button type="button" id="menu-open" class="menu-control" aria-label="Menu" aria-controls="primary-navigation" aria-expanded="false">
-        <span class="visually-hidden">Menu</span>
-        <i class="material-symbols-outlined" aria-hidden="true">menu</i>
-      </button>
-      <div data-state="closed" id="primary-navigation" role="navigation">
-        <div>
-          <h2>Navigation</h2>
-          <button type="button" id="menu-close" class="menu-control" aria-label="Menu" aria-controls="primary-navigation" aria-expanded="false">
-            <span class="visually-hidden">Close</span>
-            <i class="material-symbols-outlined" aria-hidden="true">Close</i>
-          </button>
+  <header class="space-start-end">
+    <div class="header-left">
+      <nav>
+        <button type="button" id="menu-open" class="menu-control" aria-label="Menu" aria-controls="primary-navigation" aria-expanded="false">
+          <span class="visually-hidden">Menu</span>
+          <i class="material-symbols-outlined" aria-hidden="true">menu</i>
+        </button>
+        <div data-state="closed" id="primary-navigation" role="navigation">
+          <div>
+            <h2>Navigation</h2>
+            <button type="button" id="menu-close" class="menu-control" aria-label="Menu" aria-controls="primary-navigation" aria-expanded="false">
+              <span class="visually-hidden">Close</span>
+              <i class="material-symbols-outlined" aria-hidden="true">Close</i>
+            </button>
+          </div>
+          <div class="flex-direction-column space-start-end">
+            <div id="nav-content">
+              <div class="nav-list">
+                <a href="/dashboard">Dashboard</a>
+                <a href="/filament">Filament</a>
+                <a href="/inventory">Inventory</a>
+                <a href="/equipment">Equipment</a>
+              </div>
+              <div class="nav-list">
+                <a href="/requests">Requests</a>
+                <a href="/reserved">Reserved</a>
+              </div>
+              <div class="nav-list">
+                <a href="/about">About</a>
+                <a href="/contact">Contact</a>
+              </div>
+            </div>
+            <% unless @user.nil? %>
+              <div id="nav-profile-section">
+                <img class="rhombus" src="/img/user_standard.jpg" alt="Large profile picture">
+                <h3><%= @user['name'] %></h3>
+                <a class="btn btn-primary" href="/profile">Profile</a>
+                <a class="btn btn-primary" href="/logout">Logout</a>
+              </div>
+            <% end %>
+          </div>
         </div>
-        <div id="nav-content">
-          <div class="nav-list">
-            <a href="/dashboard">Dashboard</a>
-            <a href="/filament">Filament</a>
-            <a href="/inventory">Inventory</a>
-            <a href="/equipment">Equipment</a>
-          </div>
-          <div class="nav-list">
-            <a href="/requests">Requests</a>
-            <a href="/reserved">Reserved</a>
-          </div>
-          <div class="nav-list">
-            <a href="/about">About</a>
-            <a href="/contact">Contact</a>
-          </div>
-        </div>
+        <div id="dim"></div>
+      </nav>
+      <div class="logo">
+        <a href="/">
+          <img class="small-logo" src="/svg/monochrome_white.svg" alt="logo">
+        </a>
       </div>
-      <div id="dim"></div>
-    </nav>
+      <h1><%= @title %></h1>
+    </div>
+    <div class="header-right">
+      <div class="logo">
+        <a href="/profile">
+          <img class="rhombus small-logo" src="/img/user_standard.jpg" alt="logo">
+        </a>
+      </div>
+      <% if @admin %>
+        <a class="btn btn-primary" href="/admin">Admin</a>
+      <% end %>
+    </div>
+
   </header>
 
   <%= yield %>
+
+  <footer>
+    <p>MsNet</p>
+  </footer>
 </div>
 <script src="/js/site.js"></script>
 </body>

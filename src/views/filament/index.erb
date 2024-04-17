@@ -1,0 +1,78 @@
+<div class="main-content">
+  <div class="show-content">
+    <div class="index-listing-container">
+      <div class="index-filter">
+        <div class="search-container">
+          <label for="search">Search</label>
+          <input id="search" type="text" name="search" placeholder="Search" value=""/>
+        </div>
+        <details>
+          <summary>Groups</summary>
+          <div>
+            <input id="active" name=group type="checkbox" value="active"/>
+            <label for="active">Active</label>
+            <input id="stored" name=group type="checkbox" value="stored"/>
+            <label for="stored">Stored</label>
+          </div>
+        </details>
+        <details>
+          <summary>Materials</summary>
+          <div>
+            <% @filter_data['material'].each do |item| %>
+              <input id="<%= item %>" name=material type="checkbox" value="<%= item %>"/>
+              <label for="<%= item %>"><%= item %></label>
+            <% end %>
+          </div>
+        </details>
+        <details>
+          <summary>Colors</summary>
+          <div>
+            <% @filter_data['color'].each do |item| %>
+              <input id="<%= item %>" name=color type="checkbox" value="<%= item %>"/>
+              <label for="<%= item %>"><%= item %></label>
+            <% end %>
+          </div>
+        </details>
+
+        <details>
+          <summary>Vendors</summary>
+          <div>
+            <% @filter_data['vendor'].each do |item| %>
+              <input id="<%= item %>" name=vendor type="checkbox" value="<%= item %>"/>
+              <label for="<%= item %>"><%= item %></label>
+            <% end %>
+          </div>
+        </details>
+
+      </div>
+      <table class="index-listing">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Material</th>
+          <th>Color</th>
+          <th>Vendor</th>
+          <th>Location</th>
+          <th>Groups</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @data.each do |item| %>
+          <tr class="row" onclick="window.location='filament/<%= item['id'] %>'">
+            <td id="row-search"><%= item['name'] %></td>
+            <td id="row-material"><%= item['material'] %></td>
+            <td id="row-color"><%= item['color'] %></td>
+            <td id="row-vendor"><%= item['vendor'] %></td>
+            <td id="row-location">TBD</td>
+            <td id="row-group"><%= item['group'] %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</div>
+
+
+<script src="js/filamentIndex.js"></script>
