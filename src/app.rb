@@ -3,32 +3,46 @@
 require 'pg'
 require 'debug'
 require 'dotenv'
-require_relative 'modules/db'
-Dotenv.load('../.env')
+require_relative 'modules/pgdb'
+require_relative 'modules/user'
 
+Dotenv.load('../.env')
 
 class MakerNet < Sinatra::Base
   enable :sessions
 
   before do
+    @user = nil
+    @admin = false
     allowed = %w[/login / /register]
+
     if !allowed.include?(request.path_info) && session[:user_id].nil?
       session[:redirect] = request.path_info
       redirect '/login'
     end
-    unless session[:user_id].nil?
-      @user = db.get_user_by_id(session[:user_id]) if session[:user_id]
-    end
 
+    unless session[:user_id].nil?
+      @user = user_db.get_user(session[:user_id]) if session[:user_id]
+      @admin = user_db.get_user_server_permissions(@user).positive?
+    end
   end
 
   def db
     return @db if @db
 
-    # @db = PG.connect(dbname: 'PostgresMsInventoryCont', host: 'localhost', password: 'postgres123')
-    # @db = PG.connect('localhost', 5432, nil, nil, 'postgres', 'postgres', ENV['PG_PASSWD'])
     @db = PgDb.new
+  end
 
+  def user_db
+    return @user_db if @user_db
+
+    @user_db = User.new
+  end
+
+  helpers do
+    def h(text)
+      Rack::Utils.escape_html(text)
+    end
   end
 
   get '/login' do
@@ -37,11 +51,18 @@ class MakerNet < Sinatra::Base
   end
 
   post '/login' do
-    username = params['username']
-    username = db.get_username_by_mail(username) if username.include? '@'
-    password = params['password']
+    username = params['username'].downcase
+    username = h(username)
+    password = h(params['password'])
 
-    user = db.get_user_by_username(username)
+    user = if username.include? '@'
+             user_db.get_username_by_mail(username.downcase)
+           else
+             user_db.get_user_by_username(username)
+           end
+
+    redirect '/login' if user.nil?
+
     user_password = BCrypt::Password.new(user['password'])
 
     if user_password == password
@@ -65,19 +86,19 @@ class MakerNet < Sinatra::Base
   end
 
   post '/register' do
-    name = params['name']
-    email = params['email']
-    username = params['username']
-    password = params['password']
+    name = h(params['name'])
+    email = h(params['email'])
+    username = h(params['username'].downcase)
+    password = h(params['password'])
 
     hashed_password = BCrypt::Password.create(password)
 
-    new_user_id = db.register_new_user(name, username, email, hashed_password)
+    new_user_id = user_db.register_new_user(name, username, email, hashed_password)
 
     p new_user_id['id']
     p username
     p password
-    user = db.get_user_by_id(new_user_id['id'])
+    user = user_db.get_user(new_user_id['id'])
     session[:user_id] = user['id']
     redirect '/'
   end
@@ -89,9 +110,7 @@ class MakerNet < Sinatra::Base
 
   get '/' do
     @title = 'MakerNet'
-    unless @user.nil?
-      redirect '/dashboard'
-    end
+    redirect '/dashboard' unless @user.nil?
     erb :index
   end
 

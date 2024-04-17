@@ -32,23 +32,6 @@ class PgDb
     end
   end
 
-  def get_user_by_username(username)
-    db_exec("SELECT * FROM users WHERE username = '#{username}'").first
-  end
-
-  def get_user_by_id(id)
-    db_exec("SELECT * FROM users WHERE id = #{id}").first
-  end
-
-  def get_username_by_mail(mail)
-    db_exec("SELECT * FROM users WHERE email = '#{mail}'").first
-  end
-
-  def register_new_user(name, username, email, password)
-    new_line = { name: name, username: username, email: email, password: password }
-    insert_by_hash('users', new_line)
-  end
-
   private
 
   # @param [String] sql
@@ -71,11 +54,16 @@ class PgDb
   # @param [Integer, nil] id
   # @param [Array, nil] column
   def get_resource_by_id(table, id = nil, column = nil)
-    select = if column
+    select = if column.nil?
+               '*'
+             elsif column.is_a?(Array)
                ', '.join(column)
+             elsif column.is_a?(String)
+               column
              else
                '*'
              end
+
     if id
       db_exec("SELECT #{select} FROM #{table} WHERE id = #{id}").first
     else
