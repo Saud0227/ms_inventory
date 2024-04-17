@@ -119,6 +119,12 @@ class MakerNet < Sinatra::Base
     erb :'account/dashboard'
   end
 
+  get '/admin' do
+    redirect '/' unless @admin
+    @title = 'Admin'
+    erb :'admin/dashboard'
+  end
+
   get '/filament' do
     @title = 'Filament'
     erb :'filament/index'
