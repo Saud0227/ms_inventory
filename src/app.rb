@@ -135,7 +135,7 @@ class MakerNet < Sinatra::Base
   get '/filament' do
     @title = 'Filament'
 
-    to_sort = %w[color material vendor]
+    to_sort = %w[color material vendor weight]
     @filter_data = { 'group' => filament_db.get_all_filament_groups }
 
     to_sort.each do |key|

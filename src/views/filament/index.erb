@@ -44,6 +44,17 @@
           </div>
         </details>
 
+        <details>
+          <summary>Weight</summary>
+          <div>
+            <% @filter_data['weight'].each do |item| %>
+              <input id="<%= item %>" name=weight type="checkbox" value="<%= item %>"/>
+              <label for="<%= item %>"><%= item %></label>
+            <% end %>
+          </div>
+        </details>
+
+
       </div>
       <table class="index-listing">
         <thead>
@@ -52,6 +63,7 @@
           <th>Material</th>
           <th>Color</th>
           <th>Vendor</th>
+          <th>Weight</th>
           <th>Location</th>
           <th>Groups</th>
         </tr>
@@ -63,6 +75,7 @@
             <td id="row-material"><%= item['material'] %></td>
             <td id="row-color"><%= item['color'] %></td>
             <td id="row-vendor"><%= item['vendor'] %></td>
+            <td id="row-weight"><%= item['weight'] %></td>
             <td id="row-location">TBD</td>
             <td id="row-group"><%= item['group'] %></td>
           </tr>
