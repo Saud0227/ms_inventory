@@ -8,6 +8,15 @@ class Filament < PgDb
     values
   end
 
+  def get_filament_groups(item_id)
+    raw = get_mapped_id('items_groups', 'item', 'group', item_id)
+    values = []
+    raw.each do |item|
+      values << get_resource_by_id('groups', item['group_id'])
+    end
+    values
+  end
+
   def get_filament(id = nil)
     where = "type = 'filament'"
     where += " AND id = #{id}" if id
@@ -19,6 +28,7 @@ class Filament < PgDb
       end
       item.delete('type')
       item.delete('data')
+      item['groups'] = get_filament_groups(item['id'])
       data << item
     end
     data

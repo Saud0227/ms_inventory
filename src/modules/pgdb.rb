@@ -76,4 +76,15 @@ class PgDb
   def delete_from_table_by_id(table, id)
     db_exec("DELETE FROM #{table} WHERE id = #{id}")
   end
+
+  def get_mapped_id(table, table_in, table_out, id, get_all = false)
+    known_id = "#{table_in}_id"
+    new_id = "#{table_out}_id"
+    select = if get_all
+               '*'
+             else
+               new_id
+             end
+    db_exec("SELECT #{select} FROM #{table} WHERE #{known_id} = #{id}")
+  end
 end

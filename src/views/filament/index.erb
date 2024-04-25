@@ -77,7 +77,11 @@
             <td id="row-vendor"><%= item['vendor'] %></td>
             <td id="row-weight"><%= item['weight'] %></td>
             <td id="row-location">TBD</td>
-            <td id="row-group"><%= item['group'] %></td>
+            <td id="row-group">
+              <% item['groups'].each do |group| %>
+                <%= group['name'] if group['visible']=='t' %>
+              <% end %>
+            </td>
           </tr>
         <% end %>
         </tbody>

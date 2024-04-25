@@ -143,6 +143,9 @@ class MakerNet < Sinatra::Base
     end
 
     @data = filament_db.get_filament
+
+    p @filter_data
+
     erb :'filament/index'
   end
 
